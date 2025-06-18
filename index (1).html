@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Ijlal Hasanuddin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #3498db;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: #3498db;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* About Section */
+        .about {
+            background: #f8f9fa;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid #3498db;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .skill-card h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .skill-bar {
+            background: #ecf0f1;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 4px;
+            transition: width 2s ease;
+        }
+
+        /* Experience Section */
+        .experience {
+            background: #ffffff;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #3498db;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid #3498db;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .timeline-item.left {
+            left: 0;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+        }
+
+        .timeline-item.left::after {
+            right: -12px;
+        }
+
+        .timeline-item.right::after {
+            left: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 5px 15px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+
+        .timeline-company {
+            color: #3498db;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        /* Certificates Section */
+        .certificates {
+            background: #f8f9fa;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .certificate-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .certificate-image {
+            height: 240px;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .certificate-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .certificate-content {
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .certificate-content h3 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 1.2rem;
+            line-height: 1.3;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: #ffffff;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            height: 240px;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 1.2rem;
+        }
+
+        .project-content h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .project-content p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: #2980b9;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .contact-form {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .submit-btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            margin: 0 0.5rem;
+            line-height: 40px;
+            transition: background 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #2980b9;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Skills Categories Side by Side */
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .skills-category {
+            margin-bottom: 2rem;
+        }
+
+        .skills-category-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .skills-category-title::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: #3498db;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .skills-category:first-child .skills-category-title {
+            color: #e74c3c;
+        }
+
+        .skills-category:first-child .skills-category-title::after {
+            background: #e74c3c;
+        }
+
+        .skills-category:last-child .skills-category-title {
+            color: #27ae60;
+        }
+
+        .skills-category:last-child .skills-category-title::after {
+            background: #27ae60;
+        }
+
+        /* Different colors for hard skills progress bars */
+        .skills-category:first-child .skill-progress {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+        }
+
+        /* Different colors for soft skills progress bars */
+        .skills-category:last-child .skill-progress {
+            background: linear-gradient(90deg, #27ae60, #229954);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-image img {
+                width: 280px;
+                height: 280px;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item.right {
+                left: 0;
+            }
+
+            .timeline-item.left::after,
+            .timeline-item.right::after {
+                left: 18px;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+
+            .certificates-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .certificate-image {
+                height: 200px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            .project-image {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .certificate-image {
+                height: 180px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-image {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#skills">Keahlian</a></li>
+                <li><a href="#experience">Pengalaman</a></li>
+                <li><a href="#certificates">Sertifikat</a></li>
+                <li><a href="#projects">Proyek</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Ijlal Hasanuddin</h1>
+            <p>Cyber Security Enthusiast</p>
+            <a href="#contact" class="cta-button">Hubungi Saya</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title fade-in">Tentang Saya</h2>
+            <div class="about-content">
+                <div class="about-image fade-in">
+                    <img src="/C:\Users\LENOVO\Downloads\New folder\ijlal .jpg" alt="Profile Picture">
+                </div>
+                <div class="about-text fade-in">
+                    <h3>Halo, Saya Ijlal Hasanuddin</h3>
+                    <p>Saya adalah Fresh graduate SMK Wikrama Bogor jurusan Teknik Komputer dan Jaringan, dengan spesialisasi dalam desain topologi jaringan, manajemen sistem Linux, serta keamanan siber dasar. Pemenang Juara 1 LKS Cyber Security tingkat Kota Bogor dan Jawa Barat tahun 2024 dan 2025.</p>
+                    <p>Memiliki ketertarikan kuat di bidang junior penetration testing, khususnya dalam mengidentifikasi celah keamanan, melakukan pengujian sistem, dan menyusun rekomendasi perbaikan untuk meningkatkan pertahanan digital. Aktif mengasah kemampuan melalui platform CTF seperti Hack The Box,Tryhackme,dan PicoCTF.</p>
+                    <p>Dengan semangat belajar tinggi dan fokus pada dunia penetration testing, saya siap berkontribusi sebagai bagian dari tim yang menangani pengujian keamanan sistem, identifikasi celah, dan peningkatan ketahanan infrastruktur TI melalui pendekatan yang terstruktur dan bertanggung jawab.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title fade-in">Keahlian</h2>
+            
+            <!-- Skills Categories Side by Side -->
+            <div class="skills-container">
+                <!-- Technical Skills -->
+                <div class="skills-category fade-in">
+                    <h3 class="skills-category-title">Hard Skills - Teknologi</h3>
+                    <div class="skills-grid">
+                        <div class="skill-card fade-in">
+                            <div class="skill-icon">🌐</div>
+                            <h3>Reconnaissance</h3>
+                            <p>Whois, Nmap, Dirsearch, Shodan, Google Dorking</p>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card fade-in">
+                            <div class="skill-icon">💀</div>
+                            <h3>Offensive Security</h3>
+                            <p>Hydra, Burp Suite, Gophish, John The Ripper, SQL map, Bettercap</p>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card fade-in">
+                            <div class="skill-icon">🛡️</div>
+                            <h3>Defensive Security</h3>
+                            <p>Snort, Suricata, Wireshark, FTK Imager</p>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="skills-category fade-in">
+                    <h3 class="skills-category-title">Soft Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-card fade-in">
+                            <div class="skill-icon">🧠</div>
+                            <h3>Problem Solving</h3>
+                            <p>Analytical thinking, debugging, creative solutions</p>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card fade-in">
+                            <div class="skill-icon">👥</div>
+                            <h3>Team Collaboration</h3>
+                            <p>Agile methodology, cross-functional teamwork</p>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card fade-in">
+                            <div class="skill-icon">💬</div>
+                            <h3>Communication</h3>
+                            <p>Technical documentation, client presentation</p>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card fade-in">
+                            <div class="skill-icon">👑</div>
+                            <h3>Leadership</h3>
+                            <p>Project management, mentoring, decision making</p>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80%"></div>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title fade-in">Pengalaman</h2>
+            <div class="timeline">
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Juni - Agustus 2025</span>
+                        <h3 class="timeline-title">Bootcamp Cyber Security IDN-Networkers</h3>
+                        <p class="timeline-company">Student</p>
+                        <p> bootcamp Cyber Security IDN selama 10 minggu dengan pembelajaran intensif (teori & praktik) mengenai Linux, pentesting, keamanan web & mobile, SOC labs, dan cloud security. Mengerjakan project dan simulasi serangan nyata setiap minggunya.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Juli - Desember 2024</span>
+                        <h3 class="timeline-title">IT Support (Magang)</h3>
+                        <p class="timeline-company">PT.Cahaya Buana Intima</p>
+                        <p>Memberikan dukungan teknis untuk troubleshooting perangkat keras dan lunak, pemeliharaan jaringan, serta penanganan insiden keamanan TI. Melakukan dokumentasi aset IT dan implementasi protokol dasar keamanan siber.
+Tools/Technologies: Windows Server, Mikrotik RouterOS, Linux Ubuntu, Microsoft Office, Cisco Packet Tracer, dan Kaspersky.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left fade-in">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Juli - Agustus 2024 </span>
+                        <h3 class="timeline-title">ITBOX</h3>
+                        <p class="timeline-company">Student Course </p>
+                        <p>Mengikuti program pelatihan keamanan siber yang mencakup pemahaman tentang dasar-dasar cyber security, analisis kerentanan, penanganan insiden, dan penggunaan tools keamanan jaringan untuk simulasi serangan dan pertahanan.</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="certificates">
+        <div class="container">
+            <h2 class="section-title fade-in">Sertifikat</h2>
+            <div class="certificates-grid">
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\1 2025.png" alt="LKS">
+                    </div>
+                    <div class="certificate-content">
+                        <h3>Lomba Kompetensi Siswa</h3>
+                    </div>
+                </div>
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\1 2024.png" alt="LKS">
+                    </div>
+                    <div class="certificate-content">
+                        <h3>Lomba Kompetensi Siswa</h3>
+                    </div>
+                </div>
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\Bug bounty.png" alt="Bug bounty">
+                    </div>
+                    <div class="certificate-content">
+                        <h3>Diskominfo DIY (Bug Bounty)</h3>
+                    </div>
+                </div>
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\MTCNA.png" alt="MTCNA">
+                    </div>
+                    <div class="certificate-content">
+                        <h3>MTCNA</h3>
+                    </div>
+                </div>
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\Certificate EC-Council - Make In-house Hacking and Pentesting Lab.png" alt="EC-Council">
+                    </div>
+                    <div class="certificate-content">
+                        <h3>EC-Council</h3>
+                    </div>
+                </div>
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\Certificate of Achievement.png" alt="EC-Council">
+                    </div>
+                    <div class="certificate-content">
+                        <h3>EC-Council</h3>
+                    </div>
+                </div>
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\ITBOX.png" alt="ITBOX">
+                    </div>
+                    <div class="certificate-content">
+                        <h3>ITBOX</h3>
+                    </div>
+                </div>
+                <div class="certificate-card fade-in">
+                    <div class="certificate-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\Kominfo.png" alt="Kominfo">
+                    </div>
+                    <div class="certificate-content">
+                        <h3>Kominfo</h3>
+                    </div>
+                  <div class="certificate-card fade-in">
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title fade-in">Proyek</h2>
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\Linux.jpg" alt="Linux">
+                    </div>
+                    <div class="project-content">
+                        <h3>Server Linux</h3>
+                        <p>Kumpulan proyek konfigurasi server berbasis Linux, mulai dari SSH, FTP, Web Server, hingga DNS. Seluruh tugas dikerjakan dalam bentuk LKPD selama masa pembelajaran di SMK, berfokus pada praktik langsung dan penyelesaian masalah nyata di jaringan komputer.</p>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/drive/folders/13pKOyXd2AFHEJgj1YP9z-TDVyO9DLDbu?usp=sharing" target="_blank" class="project-link">Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\aws.jpg" alt="aws">
+                    </div>
+                    <div class="project-content">
+                        <h3>Cloud Computing</h3>
+                        <p>Kumpulan proyek berbasis cloud computing menggunakan layanan AWS (Amazon Web Services). Mencakup pembuatan VPC, peluncuran EC2 Instance, hingga implementasi monitoring server dengan Nagios dan Zabbix. Setiap konfigurasi didokumentasikan dalam bentuk LKPD, sebagai bagian dari pembelajaran praktis cloud di sekolah.</p>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/drive/folders/1AnLAbj_kyOqFPdhJoSRexhzrOlct5Zo4?usp=drive_link" target="_blank" class="project-link">Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\Mikrotik.jpg" alt="Mikrotik">
+                    </div>
+                    <div class="project-content">
+                        <h3>MikroLab</h3>
+                        <p>Seri dokumentasi konfigurasi jaringan berbasis Mikrotik, mencakup pengaturan DHCP, firewall, NAT, routing dinamis, hingga manajemen bandwidth. Disusun sistematis sebagai bagian dari proyek pembelajaran dan implementasi jaringan sekolah.</p>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/drive/folders/1McnsWBKtHVw7O5JWuxkzrfISHWckMaW4?usp=drive_link" target="_blank" class="project-link">Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                     <div class="project-image">
+                        <img src="C:\Users\LENOVO\Downloads\Portofolio 2\Hosting.jpg" alt="Hosting">
+                    </div>
+                    <div class="project-content">
+                          <h3>Hostinger</h3>
+                          <p>Instalasi CyberPanel di VPS Hostinger, dilanjutkan dengan pemasangan WordPress untuk pengelolaan konten. Proyek ini juga mencakup pengenalan konsep hosting, domain, serta manajemen situs menggunakan panel kontrol berbasis web.</p>
+                        <div class="project-links">
+                           <a href="https://drive.google.com/drive/folders/1eqt5qrtoVN5m0huwQm1bv0cQTszQykRf?usp=drive_link" target="_blank" class="project-link">Demo</a>
+                      </div>
+                 </div>
+             </div>
+             <div class="project-card fade-in">
+                <div class="project-image">
+                    <img src="C:\Users\LENOVO\Downloads\Portofolio 2\idn.png" alt="IDN">
+                 </div>
+                    <div class="project-content">
+                        <h3>CTF Training – IDN Foundation (2025)</h3>
+                        <p>Meningkatkan kemampuan pentest melalui pelatihan Capture The Flag. Fokus pada teknik eksploitasi, privilege escalation, dan digital forensik. Menyelesaikan berbagai tantangan berbasis skenario dunia nyata.</p>
+                        <div class="project-links">
+                        <a href="https://drive.google.com/file/d/1-Ydyw0cR4--BAdKdqnM5YpIrWjMVMm3P/view?usp=sharing" target="_blank" class="project-link">Demo</a>
+                     </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Kontak</h2>
+            <div class="contact-content">
+                <div class="contact-info fade-in">
+                    <h3>Mari Berkolaborasi</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>dfbadriyah@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <h4>Telepon</h4>
+                            <p>+62 895-1666-8430</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Lokasi</h4>
+                            <p>Bogor, Indonesia</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form fade-in">
+                    <div class="form-group">
+                        <label for="name">Nama</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Pesan</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#">📘</a>
+                <a href="#">🐦</a>
+                <a href="#">💼</a>
+                <a href="#">📷</a>
+            </div>
+            <p>&copy; 2025 Ijlal Hasanuddin. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Skill bar animation
+        const skillObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.skill-progress');
+                    progressBars.forEach(bar => {
+                        const width = bar.getAttribute('data-width');
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 500);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skills').forEach(el => {
+            skillObserver.observe(el);
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            // Simple validation
+            if (name && email && message) {
+                alert('Terima kasih! Pesan Anda telah terkirim. Saya akan segera menghubungi Anda.');
+                this.reset();
+            } else {
+                alert('Mohon lengkapi semua field yang diperlukan.');
+            }
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Typing effect for hero section
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', function() {
+            const heroTitle = document.querySelector('.hero h1');
+            const heroSubtitle = document.querySelector('.hero p');
+            
+            setTimeout(() => {
+                typeWriter(heroTitle, 'Ijlal Hasanuddin', 150);
+            }, 500);
+            
+            setTimeout(() => {
+                typeWriter(heroSubtitle, 'Cyber Security Enthusiast', 50);
+            }, 2000);
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.project-card, .skill-card, .certificate-card, .timeline-content').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            
+            if (hero) {
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
